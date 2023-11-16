@@ -4,8 +4,8 @@ services:
     container_name: database
     image: postgres:latest
     environment:
+      POSTGRES_DB: "customer"
       POSTGRES_DB_order: "order"
-      POSTGRES_DB_customer: "customer"
       POSTGRES_USER: "arman"
       POSTGRES_PASSWORD: "arman"
       PGDATA: data/postgres
@@ -14,6 +14,7 @@ services:
     ports:
       - "5432:5432"
     networks:
+      - spring
       - postgres
     restart: unless-stopped
 
