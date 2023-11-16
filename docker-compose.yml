@@ -2,9 +2,9 @@ version: "3.9"
 services:
   postgres:
     container_name: database
-    image: postgres:latest
+    image: postgres
     environment:
-      POSTGRES_DB: "customer"
+      POSTGRES_DB_customer: "customer"
       POSTGRES_DB_order: "order"
       POSTGRES_USER: "arman"
       POSTGRES_PASSWORD: "arman"
@@ -35,7 +35,7 @@ services:
 
   eureka-server:
     container_name: eureka-server
-    image: 16ad/eureka-server:latest
+    image: 16ad/eureka-server
     ports:
       - "8761:8761"
     networks:
