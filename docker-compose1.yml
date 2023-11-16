@@ -3,7 +3,7 @@ services:
   postgres:
     image: postgres:13.3
     environment:
-      POSTGRES_DB: "customer"
+      POSTGRES_DB: "ttttt"
       POSTGRES_USER: "habrpguser"
       POSTGRES_PASSWORD: "pgpwd4habr"
     ports:
