@@ -1,6 +1,8 @@
 package com.example.customer.controller;
 
 import com.example.customer.model.Customer;
+import com.example.customer.request.RequestCustomer;
+import com.example.customer.response.ResponseCustomer;
 import com.example.customer.service.abstracts.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,8 +19,9 @@ public class CustomerRestController {
 
     private final CustomerService customerService;
 
-    private final String GET_CUSTOMER_BY_ID = "/{id}";
-    private final String DELETE_CUSTOMER_BY_ID = "/{id}";
+    private static final String CREATE_NEW_CUSTOMER = "/create";
+    private  static final String GET_CUSTOMER_BY_ID = "/{id}";
+    private static final String DELETE_CUSTOMER_BY_ID = "/{id}";
 
     @GetMapping
     public ResponseEntity<List<Customer>> getAllCustomers() {
@@ -30,9 +33,9 @@ public class CustomerRestController {
         return new ResponseEntity<>(customerService.getCustomerById(id), HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Customer> saveCustomer(@RequestBody Customer customer) {
-        return new ResponseEntity<>(customerService.saveCustomer(customer), HttpStatus.OK);
+    @PostMapping(CREATE_NEW_CUSTOMER)
+    public ResponseEntity<ResponseCustomer> saveCustomer(@RequestBody RequestCustomer requestCustomer) {
+        return new ResponseEntity<>(customerService.saveCustomer(requestCustomer), HttpStatus.OK);
     }
 
     @DeleteMapping(DELETE_CUSTOMER_BY_ID)

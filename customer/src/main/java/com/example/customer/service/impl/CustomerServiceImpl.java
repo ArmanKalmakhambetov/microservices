@@ -2,6 +2,9 @@ package com.example.customer.service.impl;
 
 import com.example.customer.model.Customer;
 import com.example.customer.repo.CustomerRepo;
+import com.example.customer.request.RequestCustomer;
+import com.example.customer.request.RequestCustomerValidator;
+import com.example.customer.response.ResponseCustomer;
 import com.example.customer.service.abstracts.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,8 +32,22 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public Customer saveCustomer(Customer customer) {
-        return customerRepo.save(customer);
+    public ResponseCustomer saveCustomer(RequestCustomer requestCustomer) {
+
+        if(RequestCustomerValidator.validate(requestCustomer)) {
+            return new ResponseCustomer(
+                    "Одно из полей не заполнено пользователь не создан", requestCustomer);
+        }
+
+        Customer customer = Customer.builder()
+                .email(requestCustomer.getEmail())
+                .username(requestCustomer.getUsername())
+                .password(requestCustomer.getPassword())
+                .build();
+
+        customerRepo.save(customer);
+
+        return new ResponseCustomer("Новый пользователь добавлен", requestCustomer);
     }
 
     @Override
