@@ -1,18 +1,34 @@
-version: "3.9"
+version: "3.8"
 services:
-  postgres:
-    container_name: database
+  postgres-customer:
+    container_name: database-customer
     image: postgres
     environment:
-      POSTGRES_DB_customer: "customer"
-      POSTGRES_DB_order: "order"
-      POSTGRES_USER: "arman"
-      POSTGRES_PASSWORD: "arman"
-      PGDATA: data/postgres
+      POSTGRES_DB: customer
+      POSTGRES_USER: arman
+      POSTGRES_PASSWORD: arman
+      PGDATA: /data/postgres
     volumes:
-      - postgres:/data/postgres
+      - postgres-customer:/data/postgres
     ports:
       - "5432:5432"
+    networks:
+      - spring
+      - postgres
+    restart: unless-stopped
+
+  postgres-order:
+    container_name: database-order
+    image: postgres
+    environment:
+      POSTGRES_DB: order
+      POSTGRES_USER: arman
+      POSTGRES_PASSWORD: arman
+      PGDATA: /data/postgres
+    volumes:
+      - postgres-order:/data/postgres
+    ports:
+      - "5433:5432"
     networks:
       - spring
       - postgres
@@ -33,18 +49,12 @@ services:
       - postgres
     restart: unless-stopped
 
-  eureka-server:
-    container_name: eureka-server
-    image: 16ad/eureka-server
-    ports:
-      - "8761:8761"
-    networks:
-      - spring
 networks:
   spring:
     driver: bridge
   postgres:
     driver: bridge
 volumes:
-  postgres:
+  postgres-customer:
+  postgres-order:
   pgadmin:
