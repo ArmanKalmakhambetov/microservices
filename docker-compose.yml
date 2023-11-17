@@ -1,34 +1,17 @@
 version: "3.8"
 services:
-  postgres-customer:
-    container_name: database-customer
+  postgres:
+    container_name: postgres
     image: postgres
     environment:
-      POSTGRES_DB: customer
-      POSTGRES_USER: arman
-      POSTGRES_PASSWORD: arman
-      PGDATA: /data/postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PGDATA: data/postgres
     volumes:
-      - postgres-customer:/data/postgres
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - postgres:/data/postgres
     ports:
       - "5432:5432"
-    networks:
-      - spring
-      - postgres
-    restart: unless-stopped
-
-  postgres-order:
-    container_name: database-order
-    image: postgres
-    environment:
-      POSTGRES_DB: order
-      POSTGRES_USER: arman
-      POSTGRES_PASSWORD: arman
-      PGDATA: /data/postgres
-    volumes:
-      - postgres-order:/data/postgres
-    ports:
-      - "5433:5432"
     networks:
       - spring
       - postgres
@@ -55,6 +38,5 @@ networks:
   postgres:
     driver: bridge
 volumes:
-  postgres-customer:
-  postgres-order:
+  postgres:
   pgadmin:
