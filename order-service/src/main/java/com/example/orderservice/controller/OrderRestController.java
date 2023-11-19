@@ -1,5 +1,6 @@
 package com.example.orderservice.controller;
 
+import com.example.orderservice.controller.dto.OrderDto;
 import com.example.orderservice.model.Order;
 import com.example.orderservice.service.abstracts.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -16,11 +17,11 @@ public class OrderRestController {
 
     private final OrderService orderService;
 
-    private final String GET_ORDER_BY_ID = "/{id}";
-    private final String DELETE_ORDER_BY_ID = "/{id}";
+    private static final String GET_ORDER_BY_ID = "/{id}";
+    private static final String DELETE_ORDER_BY_ID = "/{id}";
 
     @GetMapping
-    public ResponseEntity<List<Order>> getAllOrder() {
+    public ResponseEntity<List<OrderDto>> getAllOrder() {
         return new ResponseEntity<>(orderService.getAllOrders(), HttpStatus.OK);
     }
 

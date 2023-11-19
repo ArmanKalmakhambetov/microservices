@@ -1,6 +1,9 @@
 package com.example.orderservice.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -11,6 +14,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -25,9 +29,10 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Integer numberOfOrder;
+    private Long customerId;
 
-    private String description;
+    @ElementCollection
+    private List<Long> productIds;
 
     private LocalDateTime dateOfCreate;
 
@@ -37,20 +42,20 @@ public class Order {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return Objects.equals(id, order.id) && Objects.equals(numberOfOrder, order.numberOfOrder) && Objects.equals(description, order.description) && Objects.equals(dateOfCreate, order.dateOfCreate);
+        return Objects.equals(id, order.id) && Objects.equals(customerId, order.customerId) && Objects.equals(productIds, order.productIds) && Objects.equals(dateOfCreate, order.dateOfCreate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, numberOfOrder, description, dateOfCreate);
+        return Objects.hash(id, customerId, productIds, dateOfCreate);
     }
 
     @Override
     public String toString() {
         return "Order{" +
                 "id=" + id +
-                ", numberOfOrder=" + numberOfOrder +
-                ", description='" + description + '\'' +
+                ", customerId=" + customerId +
+                ", productIds=" + productIds +
                 ", dateOfCreate=" + dateOfCreate +
                 '}';
     }
