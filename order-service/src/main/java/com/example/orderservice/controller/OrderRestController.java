@@ -30,7 +30,7 @@ public class OrderRestController {
         return new ResponseEntity<>(orderService.getOrderById(id), HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<Order> saveOrder(@RequestBody Order order) {
         return new ResponseEntity<>(orderService.saveOrder(order), HttpStatus.OK);
     }

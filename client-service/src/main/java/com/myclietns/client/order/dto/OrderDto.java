@@ -1,4 +1,4 @@
-package com.order.processing.client.dto;
+package com.myclietns.client.order.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
