@@ -1,5 +1,6 @@
 package com.example.orderservice.service.impl;
 
+import com.example.orderservice.controller.dto.OrderDto;
 import com.example.orderservice.model.Order;
 import com.example.orderservice.repo.OrderRepo;
 import com.example.orderservice.service.abstracts.OrderService;
@@ -18,8 +19,16 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Order> getAllOrders() {
-        return orderRepo.findAll();
+    public List<OrderDto> getAllOrders() {
+
+        return orderRepo.findAll()
+                .stream()
+                .map(order -> OrderDto.builder()
+                        .customerId(order.getCustomerId())
+                        .dateOfCreate(order.getDateOfCreate())
+                        .productIds(order.getProductIds())
+                        .build())
+                .toList();
     }
 
     @Override
