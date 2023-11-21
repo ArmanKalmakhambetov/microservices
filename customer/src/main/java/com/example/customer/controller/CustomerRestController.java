@@ -33,6 +33,7 @@ public class CustomerRestController {
         return new ResponseEntity<>(customerService.getCustomerById(id), HttpStatus.OK);
     }
 
+    // TODO: Добавить валидацию данных
     @PostMapping(CREATE_NEW_CUSTOMER)
     public ResponseEntity<ResponseCustomer> saveCustomer(@RequestBody RequestCustomer requestCustomer) {
         return new ResponseEntity<>(customerService.saveCustomer(requestCustomer), HttpStatus.OK);
