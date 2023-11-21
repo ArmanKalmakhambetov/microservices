@@ -30,8 +30,12 @@ public class OrderRestController {
         return new ResponseEntity<>(orderService.getOrderById(id), HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<Order> saveOrder(@RequestBody Order order) {
+
+        // TODO: Проверить все ли продукты есть в базе,
+        //  если чего то нет вернуть сообщение о несоответствии заказа. После удачной проверки
+        //  вывести сообщение о том что заказ передан в обработку
         return new ResponseEntity<>(orderService.saveOrder(order), HttpStatus.OK);
     }
 

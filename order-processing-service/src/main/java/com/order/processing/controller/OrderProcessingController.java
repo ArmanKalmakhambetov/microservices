@@ -1,7 +1,7 @@
 package com.order.processing.controller;
 
-import com.order.processing.client.OrderServiceClient;
-import com.order.processing.client.dto.OrderDto;
+import com.myclietns.client.order.dto.OrderDto;
+import com.order.processing.service.OrderProcessingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,14 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/InformationAboutOrders")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class OrderProcessingController {
 
-    private final OrderServiceClient demo;
+    public static final String GET_INFORMATION_ABOUT_ORDERS = "/information";
 
-    @GetMapping
-    public ResponseEntity<List<OrderDto>> getInformationAboutOrders() {
-        return new ResponseEntity<>(demo.getAllOrder(), HttpStatus.OK);
+    private final OrderProcessingService orderProcessingService;
+
+    @GetMapping(GET_INFORMATION_ABOUT_ORDERS)
+    public ResponseEntity<List<OrderDto>> getInformationAboutAllOrders() {
+        return new ResponseEntity<>(orderProcessingService.getInformationAboutAllOrders(), HttpStatus.OK);
     }
 }
